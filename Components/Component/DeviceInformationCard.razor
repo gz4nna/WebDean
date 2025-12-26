@@ -1,0 +1,34 @@
+@using System.Diagnostics.CodeAnalysis
+<!-- show GetMachineInfo()  -->
+<Card IsCenter="false">
+    <HeaderTemplate>
+        Device Information
+    </HeaderTemplate>
+    <BodyTemplate>
+        <h4>@name</h4>
+        <p>click to show the full system information</p>
+        <Button OnClick="() => BackdropModal.Toggle()">
+            more information
+        </Button>
+        <Modal @ref="BackdropModal" IsBackdrop="true">
+            <ModalDialog Title="click outside to close" ShowCloseButton="true">
+                <BodyTemplate>
+                    @{
+                        var machineInfo = GetMachineInfo();
+                        string line = string.Empty;
+                        <ListGroup TItem="string" Items="machineInfo" Value="line" HeaderText="Device Information">
+                        </ListGroup>
+                    }
+                </BodyTemplate>
+            </ModalDialog>
+        </Modal>
+    </BodyTemplate>
+    <FooterTemplate>
+        last updated: @lastUpdatedTime
+    </FooterTemplate>
+</Card>
+@functions {
+    [NotNull]
+    // Modal reference
+    private Modal? BackdropModal { get; set; }
+}

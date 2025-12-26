@@ -1,0 +1,51 @@
+@using System.Diagnostics.CodeAnalysis
+@using System.Diagnostics
+
+<Card IsCenter="false">
+    <HeaderTemplate>
+        Process List
+    </HeaderTemplate>
+    <BodyTemplate>
+        <h4>Process List</h4>
+        <p>click to show the full process list</p>
+        <Button OnClick="() => BackdropModal.Toggle()">
+            more information
+        </Button>
+    </BodyTemplate>
+    <FooterTemplate>
+        last updated:
+    </FooterTemplate>
+</Card>
+<Modal @ref="BackdropModal" IsBackdrop="true">
+    <ModalDialog Title="click outside to close" ShowCloseButton="true">
+        <BodyTemplate>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Process Name</th>
+                        <th>Id</th>
+                        <th>Working Set (Bytes)</th>
+                        <th>Start Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var process in GetProcessList())
+                    {
+                        <tr>
+                            <td>@process.ProcessName</td>
+                            <td>@process.Id</td>
+                            <td>@process.WorkingSet64</td>
+                            <td>@process.StartTime</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@functions {
+    [NotNull]
+    // Modal reference
+    private Modal? BackdropModal { get; set; }
+}

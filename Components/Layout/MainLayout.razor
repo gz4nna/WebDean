@@ -1,0 +1,31 @@
+﻿@using WebDean.Components.Component
+@inherits LayoutComponentBase
+
+<BootstrapBlazorRoot>
+    <Layout ShowFooter="true" IsFullSide="true" IsFixedFooter="true" IsFixedHeader="false" IsPage="true"
+        AdditionalAssemblies="[typeof(MainLayout).Assembly]">
+        <Header>
+            <TopBrand></TopBrand>
+        </Header>
+        <Main>
+            <DefaultNavMenu></DefaultNavMenu>
+            <article class="content px-4">
+                @Body
+            </article>
+        </Main>
+        <Footer>
+            <!-- set content to right -->
+            <div class="d-flex justify-content-end">
+                <i class="fa-brands fa-github"></i>
+                <span>GZ4nna</span>
+            </div>
+        </Footer>
+    </Layout>
+</BootstrapBlazorRoot>
+
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>

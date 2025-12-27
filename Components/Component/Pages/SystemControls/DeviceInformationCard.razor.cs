@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics.CodeAnalysis;
 
-namespace WebDean.Components.Component;
+namespace WebDean.Components.Component.Pages.SystemControls;
 
 public partial class DeviceInformationCard : ComponentBase
 {

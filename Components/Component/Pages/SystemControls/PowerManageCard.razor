@@ -1,0 +1,68 @@
+@using System.Diagnostics.CodeAnalysis
+@using System.Diagnostics
+@inject ToastService ToastService
+
+<Card IsCenter="false">
+    <HeaderTemplate>
+        <h3>Power Management</h3>
+    </HeaderTemplate>
+    <BodyTemplate>
+        <h4>Power Management</h4>
+        <p>click to manage power settings</p>
+        <Button OnClick="() => BackdropModal.Toggle()">
+            more options
+        </Button>
+    </BodyTemplate>
+    <FooterTemplate>
+        last used: never
+    </FooterTemplate>
+</Card>
+<Modal @ref="BackdropModal" IsBackdrop="true">
+    <ModalDialog Title="click outside to close" ShowCloseButton="true">
+        <BodyTemplate>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <Select ShowLabel="true" Color="Color.Primary" DisplayText="Power Action" Items="PowerOptions"
+                        @bind-Value="PowerAction" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput ShowLabel="true" DisplayText="Delay (in seconds)"
+                        @bind-Value="PowerActionArgument" />
+                </div>
+            </div>
+            <!-- a line of space to separate the inputs from the button -->
+            <div class="my-3"></div>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <Button Color="Color.Danger" OnClick="() => ExecuteCommand(PowerAction, PowerActionArgument)">
+                        Execute
+                    </Button>
+                </div>
+            </div>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@functions {
+    [NotNull]
+    private Modal? BackdropModal { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ErrorToast { get; set; }
+
+
+    private string? PowerAction = "";
+
+    private string? PowerActionArgument = "0";
+
+    private IEnumerable<SelectedItem> PowerOptions { get; set; } = new[]
+    {
+new SelectedItem("poweroff","poweroff"),
+new SelectedItem("hibernate","hibernate"),
+new SelectedItem("suspend","suspend"),
+new SelectedItem("reboot","reboot")
+};
+
+
+}

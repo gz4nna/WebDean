@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 
-namespace WebDean.Components.Component;
+namespace WebDean.Components.Component.Pages.SystemControls;
 
 partial class ProcessListCard : ComponentBase
 {

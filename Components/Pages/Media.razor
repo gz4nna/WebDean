@@ -5,13 +5,17 @@
 @using System.Text.RegularExpressions
 
 <PageTitle>Media</PageTitle>
+
 <h3>Media</h3>
+
 <Display Value="CurrentValue"></Display>
 <Slider @bind-Value="CurrentValue" Max="MaxValue" Min="MinValue" Step="Step" DisplayText="@DisplayText"
     ShowLabel="ShowLabel" OnValueChanged="OnValueChanged"></Slider>
 
-@functions {
+<Button @onclick="Silence">click to silence</Button>
 
+@functions {
+    #region Properties
     private string DisplayText { get; set; } = "Volume";
 
     private double MaxValue { get; set; } = 100;
@@ -24,9 +28,30 @@
 
     private bool ShowLabel { get; set; } = true;
 
+    private double PreviousValue { get; set; } = 0;
+    #endregion
+
     protected override void OnInitialized()
     {
         CurrentValue = GetCurrentVolume();
+    }
+
+    /// <summary>
+    /// silence or restore volume
+    /// </summary>
+    private void Silence()
+    {
+        if (PreviousValue == 0)
+        {
+            SetVolume(0);
+            PreviousValue = CurrentValue;
+        }
+        else
+        {
+            SetVolume((int)PreviousValue);
+            CurrentValue = PreviousValue;
+            PreviousValue = 0;
+        }
     }
 
     /// <summary>
@@ -73,6 +98,8 @@
     {
         CurrentValue = value;
         SetVolume((int)CurrentValue);
+        // when volume is changed manually, reset PreviousValue as not muted
+        PreviousValue = 0;
     }
 
     /// <summary>

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 
@@ -5,6 +6,44 @@ namespace WebDean.Components.Component.Pages.SystemControls;
 
 public partial class PowerManageCard : ComponentBase
 {
+    [NotNull]
+    private Modal? BackdropModal { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ErrorToast { get; set; }
+
+    /// <summary>
+    /// The selected power action to execute.
+    /// </summary>
+    private string? PowerAction = "";
+
+    /// <summary>
+    /// The argument for the power action, delay in seconds.
+    /// </summary>
+    private string? PowerActionArgument = "0";
+
+#if DEBUG
+    /// <summary>
+    /// use a unavailable power option for debug mode
+    /// </summary>
+    private IEnumerable<SelectedItem> PowerOptions { get; set; } = new[]
+    {
+new SelectedItem("aaa","aaa"),
+new SelectedItem("hibernate","hibernate"),
+new SelectedItem("suspend","suspend"),
+new SelectedItem("reboot","reboot")
+};
+#elif RELEASE
+private IEnumerable<SelectedItem> PowerOptions { get; set; } = new[]
+{
+new SelectedItem("poweroff","poweroff"),
+new SelectedItem("hibernate","hibernate"),
+new SelectedItem("suspend","suspend"),
+new SelectedItem("reboot","reboot")
+};
+#endif
+
     /// <summary>
     /// Validates the user input for power action and delay.
     /// </summary>

@@ -1,3 +1,4 @@
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics.CodeAnalysis;
@@ -6,13 +7,15 @@ namespace WebDean.Components.Component.Pages.SystemControls;
 
 public partial class DeviceInformationCard : ComponentBase
 {
+    [NotNull]
+    // Modal reference
+    private Modal? BackdropModal { get; set; }
+
     // last updated time
     private string? lastUpdatedTime = null;
+
     private string? name = null;
 
-    /// <summary>
-    /// 
-    /// </summary>
     protected override void OnInitialized()
     {
         #region initialize last updated time from sqlite database

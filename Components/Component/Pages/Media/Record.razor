@@ -1,0 +1,13 @@
+<BootstrapInputNumber @bind-Value="recordDuration" Min="1" Max="3600" Step="1" Label="Record Duration (seconds)">
+</BootstrapInputNumber>
+
+<Button ButtonStyle="ButtonStyle.Circle" OnClick="OnRecordButtonClick">
+    @if (isRecording)
+    {
+        <i class="fa-solid fa-stop"></i>
+    }
+    else
+    {
+        <i class="fa-solid fa-play"></i>
+    }
+</Button>

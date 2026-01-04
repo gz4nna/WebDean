@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# local file save path
+wwwroot/records/
+
 # sqlite database files
 *.sqlite
 *.sqlite3
